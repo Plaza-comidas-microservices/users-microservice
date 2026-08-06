@@ -1,6 +1,6 @@
 package com.pragma.plazacomidas.msusers.domain.spi;
 
-import com.pragma.powerup.domain.model.ObjectModel;
+import com.pragma.plazacomidas.msusers.domain.model.ObjectModel;
 import java.util.List;
 
 public interface IObjectPersistencePort {
