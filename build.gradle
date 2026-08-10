@@ -45,6 +45,8 @@ dependencies {
 
 	implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
 	implementation "org.springdoc:springdoc-openapi-webflux-ui:${openApiVersion}"
+
+	implementation "org.springframework.security:spring-security-crypto"
 }
 
 tasks.named('test') {

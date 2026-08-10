@@ -1,6 +1,6 @@
 package com.pragma.plazacomidas.msusers.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class OwnerModel {
     private String lastName;
     private String cc;
     private String phone;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String email;
     private String password;
     private String role;
