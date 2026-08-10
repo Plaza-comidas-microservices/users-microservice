@@ -24,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class BeanConfiguration {
     private final IObjectRepository objectRepository;
     private final IObjectEntityMapper objectEntityMapper;
-    private final IPasswordEncoderPort passwordEncoderPort; //Esto no lo estoy usando 
 
     @Bean
     public IObjectPersistencePort objectPersistencePort() {

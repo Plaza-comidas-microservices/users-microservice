@@ -32,7 +32,7 @@ public class UserUseCase implements IUserServicePort {
 
         if (email == null || !email.contains("@")) {
             throw new DomainException("El correo electrónico no es válido");
-        }else if (phoneNumber == null || !phoneNumber.matches("^\\+?\\d{10, 13}$")) {
+        }else if (phoneNumber == null || !phoneNumber.matches("^\\+?\\d{10,13}$")) {
             throw new DomainException("El número de teléfono no es válido. Ejemplo +573005698325");
         } else if (cc == null || !cc.matches("\\d+")  ) {
             throw new DomainException("El número de cédula debe ser solo dígitos");
