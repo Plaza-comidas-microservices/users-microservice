@@ -22,7 +22,7 @@ repositories {
 ext {
 	springBootVersion = "2.7.3"
 	mapstructVersion = "1.5.2.Final"
-	lombokVersion = "1.18.24"
+	lombokVersion = "1.18.34"
 	lombokMapstructBindingVersion = "0.2.0"
 	mySqlConnectorVersion = "8.0.32"
 	openApiVersion = "1.6.11"

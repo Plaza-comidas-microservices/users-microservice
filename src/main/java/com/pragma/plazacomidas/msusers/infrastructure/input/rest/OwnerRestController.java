@@ -15,7 +15,9 @@ import com.pragma.plazacomidas.msusers.application.dto.response.OwnerResponseDto
 import com.pragma.plazacomidas.msusers.application.handler.IOwnerHandler;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -30,17 +32,21 @@ public class OwnerRestController {
     @Operation(summary = "create a new owner")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Owner created", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Owner already exists", content = @Content)
+            @ApiResponse(responseCode = "400", 
+            description = "Invalid owner data: email, phone or document format is invalid, or the owner is not of legal age",
+            content = @Content)
     })
     @PostMapping("/")
-    public ResponseEntity<Void> saveObject(@RequestBody OwnerRequestDto ownerRequestDto) {
-        ownerHandler.saveOwner(ownerRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<OwnerResponseDto> saveObject(@RequestBody OwnerRequestDto ownerRequestDto) {
+        OwnerResponseDto ownerResponseDto = ownerHandler.saveOwner(ownerRequestDto);
+        return new ResponseEntity<>(ownerResponseDto, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get all owners")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "All owners returned", content = @Content),
+            @ApiResponse(responseCode = "200", description = "All owners returned",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = OwnerResponseDto.class)))),
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
     })
     @GetMapping("/")
