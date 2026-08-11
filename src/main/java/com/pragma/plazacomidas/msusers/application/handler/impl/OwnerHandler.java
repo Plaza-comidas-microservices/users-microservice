@@ -1,18 +1,19 @@
 package com.pragma.plazacomidas.msusers.application.handler.impl;
 
-import com.pragma.plazacomidas.msusers.application.handler.IOwnerHandler;
-import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pragma.plazacomidas.msusers.application.mapper.IOwnerRequestMapper;
-import com.pragma.plazacomidas.msusers.application.mapper.IOwnerResponseMapper;
 import com.pragma.plazacomidas.msusers.application.dto.request.OwnerRequestDto;
 import com.pragma.plazacomidas.msusers.application.dto.response.OwnerResponseDto;
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel; //esto está bien??
+import com.pragma.plazacomidas.msusers.application.handler.IOwnerHandler;
+import com.pragma.plazacomidas.msusers.application.mapper.IOwnerRequestMapper;
+import com.pragma.plazacomidas.msusers.application.mapper.IOwnerResponseMapper;
+import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
+import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+
+import lombok.RequiredArgsConstructor;
 
 
 
@@ -24,8 +25,6 @@ public class OwnerHandler implements IOwnerHandler {
     private final IUserServicePort userServicePort;
     private final IOwnerResponseMapper ownerResponseMapper;
     private final IOwnerRequestMapper ownerRequestMapper;
-
-
    
     @Override
     public OwnerResponseDto saveOwner(OwnerRequestDto ownerRequestDto) {
@@ -38,5 +37,9 @@ public class OwnerHandler implements IOwnerHandler {
 
         return ownerResponseDto;
     }
-    
+
+    @Override
+    public List<OwnerResponseDto> getAllOwners() {
+        return ownerResponseMapper.toResponseList(userServicePort.getAllOwners());
+    }
 }

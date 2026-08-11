@@ -2,8 +2,7 @@ package com.pragma.plazacomidas.msusers.domain.usecase;
 
 import java.time.LocalDate;
 import java.time.Period;
-
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import java.util.List;
 
 import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
 import com.pragma.plazacomidas.msusers.domain.exception.DomainException;
@@ -21,7 +20,6 @@ public class UserUseCase implements IUserServicePort {
         this.passwordEncoderPort = passwordEncoderPort;
     }
 
-    @ExceptionHandler
     @Override
     public OwnerModel createOwner(OwnerModel ownerModel) {
         String email = ownerModel.getEmail();
@@ -58,6 +56,11 @@ public class UserUseCase implements IUserServicePort {
             isAdult = age.getYears() >= 18;
         }
         return isAdult;
+    }
+
+    @Override
+    public List<OwnerModel> getAllOwners() {
+        return userPersistencePort.getAllOwners();
     }
     
 }

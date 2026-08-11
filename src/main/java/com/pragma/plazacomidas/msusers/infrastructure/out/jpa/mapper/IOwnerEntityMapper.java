@@ -1,5 +1,7 @@
 package com.pragma.plazacomidas.msusers.infrastructure.out.jpa.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -14,4 +16,5 @@ public interface IOwnerEntityMapper {
 
     OwnerEntity toEntity(OwnerModel ownerModel);
     OwnerModel toOwnerModel(OwnerEntity ownerEntity);
+    List<OwnerModel> toOwnerModelList(List<OwnerEntity> ownerEntityList);
 }
