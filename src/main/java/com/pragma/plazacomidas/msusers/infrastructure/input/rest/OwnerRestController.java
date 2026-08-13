@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pragma.plazacomidas.msusers.application.dto.request.OwnerRequestDto;
 import com.pragma.plazacomidas.msusers.application.dto.response.OwnerResponseDto;
+import com.pragma.plazacomidas.msusers.application.dto.response.OwnerValidationResponseDto;
 import com.pragma.plazacomidas.msusers.application.handler.IOwnerHandler;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,6 +54,13 @@ public class OwnerRestController {
     @GetMapping("/")
     public ResponseEntity<List<OwnerResponseDto>> getAllOwners() {
         return ResponseEntity.ok(ownerHandler.getAllOwners());
+    }
+
+    @Operation(summary ="Get Owner by id (used for validation between microservices)")
+    @GetMapping("/{id}")
+    public ResponseEntity<OwnerValidationResponseDto> getOwnerById(@PathVariable Long id){
+        return ResponseEntity.ok(ownerHandler.getOwnerById(id));
+
     }
     
 }

@@ -10,4 +10,6 @@ public interface IUserServicePort {
     OwnerModel createOwner(OwnerModel ownerModel);
     
     List<OwnerModel> getAllOwners();
+
+    OwnerModel getOwnerById(Long ownerId);
 }

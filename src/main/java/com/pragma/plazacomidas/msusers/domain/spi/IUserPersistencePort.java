@@ -7,4 +7,5 @@ import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
 public interface IUserPersistencePort {
     OwnerModel saveOwner(OwnerModel ownerModel);
     List<OwnerModel> getAllOwners();
+    OwnerModel getOwnerById(Long ownerId);
 }

@@ -12,6 +12,6 @@ import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
 public interface IOwnerResponseMapper {
     OwnerResponseDto toResponse(OwnerModel ownerModel);
 
-     List<OwnerResponseDto> toResponseList(List<OwnerModel> ownerModelList);
+    List<OwnerResponseDto> toResponseList(List<OwnerModel> ownerModelList);
     
 }
