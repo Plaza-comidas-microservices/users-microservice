@@ -62,5 +62,10 @@ public class UserUseCase implements IUserServicePort {
     public List<OwnerModel> getAllOwners() {
         return userPersistencePort.getAllOwners();
     }
+
+    @Override
+    public OwnerModel getOwnerById(Long ownerId) {
+        return userPersistencePort.getOwnerById(ownerId);
+    }
     
 }

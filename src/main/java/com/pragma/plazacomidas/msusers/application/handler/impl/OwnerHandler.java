@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pragma.plazacomidas.msusers.application.dto.request.OwnerRequestDto;
 import com.pragma.plazacomidas.msusers.application.dto.response.OwnerResponseDto;
+import com.pragma.plazacomidas.msusers.application.dto.response.OwnerValidationResponseDto;
 import com.pragma.plazacomidas.msusers.application.handler.IOwnerHandler;
 import com.pragma.plazacomidas.msusers.application.mapper.IOwnerRequestMapper;
 import com.pragma.plazacomidas.msusers.application.mapper.IOwnerResponseMapper;
+import com.pragma.plazacomidas.msusers.application.mapper.IOwnerValidationMapper;
 import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
 import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
 
@@ -25,6 +27,7 @@ public class OwnerHandler implements IOwnerHandler {
     private final IUserServicePort userServicePort;
     private final IOwnerResponseMapper ownerResponseMapper;
     private final IOwnerRequestMapper ownerRequestMapper;
+    private final IOwnerValidationMapper ownerValidationMapper;
    
     @Override
     public OwnerResponseDto saveOwner(OwnerRequestDto ownerRequestDto) {
@@ -41,5 +44,16 @@ public class OwnerHandler implements IOwnerHandler {
     @Override
     public List<OwnerResponseDto> getAllOwners() {
         return ownerResponseMapper.toResponseList(userServicePort.getAllOwners());
+    }
+
+    @Override
+    public OwnerValidationResponseDto getOwnerById(Long ownerId) {
+        //Lamo al caso de uso
+        OwnerModel ownerModelFound = userServicePort.getOwnerById(ownerId);
+
+        //Mapeo la salida
+        OwnerValidationResponseDto ownerValidationResponseDto = ownerValidationMapper.toResponse(ownerModelFound);
+        
+        return ownerValidationResponseDto;
     }
 }
