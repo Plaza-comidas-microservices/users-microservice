@@ -5,13 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort; // aquí estoy importantado el dominio
+import com.pragma.plazacomidas.msusers.domain.usecase.AuthenticationUseCase;
 import com.pragma.plazacomidas.msusers.domain.usecase.UserUseCase;
 import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.adapter.OwnerJpaAdapter;
 import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.mapper.IOwnerEntityMapper;
 import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.repository.IOwnerRepository;
 import com.pragma.plazacomidas.msusers.infrastructure.out.security.BCryptPasswordEncoderAdapter;
+import com.pragma.plazacomidas.msusers.infrastructure.out.security.JwtTokenAdapter;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,6 +33,17 @@ public class BeanConfiguration {
     @Bean
     public UserUseCase userUseCase(OwnerJpaAdapter ownerJpaAdapter) {
         return new UserUseCase(ownerJpaAdapter, passwordEncoderPort());
+    }
+
+    @Bean
+    public JwtTokenAdapter jwtTokenAdapter(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expirationTimeInMillis){
+        return new JwtTokenAdapter(secret, expirationTimeInMillis);
+    }
+    
+    @Bean
+    public AuthenticationUseCase authenticationUseCase(OwnerJpaAdapter ownerJpaAdapter, JwtTokenAdapter jwtTokenAdapter){
+        return new AuthenticationUseCase(ownerJpaAdapter, passwordEncoderPort(), jwtTokenAdapter);
+
     }
 
 

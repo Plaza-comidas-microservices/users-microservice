@@ -15,6 +15,11 @@ public class BCryptPasswordEncoderAdapter implements IPasswordEncoderPort {
     public String encode(String password) {
         return bCryptPasswordEncoder.encode(password);
     }
+
+    @Override
+    public Boolean matches(String raw, String encodeed) {
+        return bCryptPasswordEncoder.matches(raw, encodeed);
+    }
     
 }
 

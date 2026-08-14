@@ -38,5 +38,10 @@ public class OwnerJpaAdapter implements IUserPersistencePort {
         OwnerEntity ownerEntity = ownerRepository.findById(ownerId).orElseThrow(NoDataFoundException::new);
         return ownerEntityMapper.toOwnerModel(ownerEntity);
     }
+
+    @Override
+    public OwnerModel findByEmail(String email) {
+        return ownerRepository.findByEmail(email).map(ownerEntityMapper::toOwnerModel).orElse(null);
+    }
     
 }
