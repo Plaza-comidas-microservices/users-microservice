@@ -3,12 +3,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import com.pragma.plazacomidas.msusers.application.dto.request.OwnerRequestDto;
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 
 
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IOwnerRequestMapper {
 
-    OwnerModel toOwner(OwnerRequestDto ownerRequestDto);
+    UserModel toOwner(OwnerRequestDto ownerRequestDto);
     
 }

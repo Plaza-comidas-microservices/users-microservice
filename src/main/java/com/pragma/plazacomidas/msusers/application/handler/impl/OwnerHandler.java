@@ -13,7 +13,7 @@ import com.pragma.plazacomidas.msusers.application.mapper.IOwnerRequestMapper;
 import com.pragma.plazacomidas.msusers.application.mapper.IOwnerResponseMapper;
 import com.pragma.plazacomidas.msusers.application.mapper.IOwnerValidationMapper;
 import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,9 +32,9 @@ public class OwnerHandler implements IOwnerHandler {
     @Override
     public OwnerResponseDto saveOwner(OwnerRequestDto ownerRequestDto) {
         //1 mapeo de entrada
-        OwnerModel ownerModel = ownerRequestMapper.toOwner(ownerRequestDto);
+        UserModel ownerModel = ownerRequestMapper.toOwner(ownerRequestDto);
         //2 llamo al caso de uso
-        OwnerModel createdOwner = userServicePort.createOwner(ownerModel);
+        UserModel createdOwner = userServicePort.createOwner(ownerModel);
         //3 mapeo de salida
         OwnerResponseDto ownerResponseDto = ownerResponseMapper.toResponse(createdOwner);
 
@@ -49,7 +49,7 @@ public class OwnerHandler implements IOwnerHandler {
     @Override
     public OwnerValidationResponseDto getOwnerById(Long ownerId) {
         //Lamo al caso de uso
-        OwnerModel ownerModelFound = userServicePort.getOwnerById(ownerId);
+        UserModel ownerModelFound = userServicePort.getOwnerById(ownerId);
 
         //Mapeo la salida
         OwnerValidationResponseDto ownerValidationResponseDto = ownerValidationMapper.toResponse(ownerModelFound);

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OwnerModel {
+public class UserModel {
     private Long id;
     private String name;
     private String lastName;

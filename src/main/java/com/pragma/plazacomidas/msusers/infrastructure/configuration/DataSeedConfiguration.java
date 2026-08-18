@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort;
 import com.pragma.plazacomidas.msusers.domain.spi.IUserPersistencePort;
 
@@ -20,7 +20,7 @@ public class DataSeedConfiguration {
     public CommandLineRunner seedAdminUser(IUserPersistencePort userPersistencePort, IPasswordEncoderPort passwordEncoderPort){
         return args -> {
             if(userPersistencePort.findByRole("ROLE_ADMIN") == null ){
-                OwnerModel adminUser = new OwnerModel();
+                UserModel adminUser = new UserModel();
                 adminUser.setName("Daron");
                 adminUser.setLastName("Mercado");
                 adminUser.setCc("1112148306");
@@ -29,7 +29,7 @@ public class DataSeedConfiguration {
                 adminUser.setEmail("daron@gmail.com");
                 adminUser.setPassword(passwordEncoderPort.encode("Daron123."));
                 adminUser.setRole("ROLE_ADMIN");
-                userPersistencePort.saveOwner(adminUser);
+                userPersistencePort.saveUser(adminUser);
             }
         };
     }

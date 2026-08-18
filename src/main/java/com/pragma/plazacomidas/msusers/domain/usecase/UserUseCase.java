@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
 import com.pragma.plazacomidas.msusers.domain.exception.DomainException;
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 import com.pragma.plazacomidas.msusers.domain.spi.IUserPersistencePort;
 
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort;
@@ -21,7 +21,7 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public OwnerModel createOwner(OwnerModel ownerModel) {
+    public UserModel createOwner(UserModel ownerModel) {
         String email = ownerModel.getEmail();
         String phoneNumber = ownerModel.getPhone();
         String cc = ownerModel.getCc();
@@ -41,7 +41,7 @@ public class UserUseCase implements IUserServicePort {
         }else{
             ownerModel.setRole("ROLE_OWNER");
             ownerModel.setPassword(passwordEncoderPort.encode(ownerModel.getPassword()));
-            return userPersistencePort.saveOwner(ownerModel);
+            return userPersistencePort.saveUser(ownerModel);
         }
 
     }
@@ -59,13 +59,13 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public List<OwnerModel> getAllOwners() {
-        return userPersistencePort.getAllOwners();
+    public List<UserModel> getAllOwners() {
+        return userPersistencePort.getAllUsers();
     }
 
     @Override
-    public OwnerModel getOwnerById(Long ownerId) {
-        return userPersistencePort.getOwnerById(ownerId);
+    public UserModel getOwnerById(Long ownerId) {
+        return userPersistencePort.getUserById(ownerId);
     }
     
 }

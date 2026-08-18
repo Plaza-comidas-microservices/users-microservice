@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class OwnerEntity {
+public class UserEntity {
     
     /**
      private Long id;

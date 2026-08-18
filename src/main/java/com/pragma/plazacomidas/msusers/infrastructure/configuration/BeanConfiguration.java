@@ -8,9 +8,9 @@ import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort; // aquí
 import com.pragma.plazacomidas.msusers.domain.spi.IUserPersistencePort;
 import com.pragma.plazacomidas.msusers.domain.usecase.AuthenticationUseCase;
 import com.pragma.plazacomidas.msusers.domain.usecase.UserUseCase;
-import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.adapter.OwnerJpaAdapter;
-import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.mapper.IOwnerEntityMapper;
-import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.repository.IOwnerRepository;
+import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.adapter.UserJpaAdapter;
+import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.mapper.IUserEntityMapper;
+import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.repository.IUserRepository;
 import com.pragma.plazacomidas.msusers.infrastructure.out.security.BCryptPasswordEncoderAdapter;
 import com.pragma.plazacomidas.msusers.infrastructure.out.security.JwtTokenAdapter;
 
@@ -28,12 +28,12 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public OwnerJpaAdapter ownerJpaAdapter(IOwnerRepository ownerRepository, IOwnerEntityMapper ownerEntityMapper) {
-        return new OwnerJpaAdapter(ownerRepository, ownerEntityMapper);
+    public UserJpaAdapter ownerJpaAdapter(IUserRepository ownerRepository, IUserEntityMapper ownerEntityMapper) {
+        return new UserJpaAdapter(ownerRepository, ownerEntityMapper);
     }
 
     @Bean
-    public UserUseCase userUseCase(OwnerJpaAdapter ownerJpaAdapter) {
+    public UserUseCase userUseCase(UserJpaAdapter ownerJpaAdapter) {
         return new UserUseCase(ownerJpaAdapter, passwordEncoderPort());
     }
 
@@ -43,7 +43,7 @@ public class BeanConfiguration {
     }
     
     @Bean
-    public AuthenticationUseCase authenticationUseCase(OwnerJpaAdapter ownerJpaAdapter, JwtTokenAdapter jwtTokenAdapter){
+    public AuthenticationUseCase authenticationUseCase(UserJpaAdapter ownerJpaAdapter, JwtTokenAdapter jwtTokenAdapter){
         return new AuthenticationUseCase(ownerJpaAdapter, passwordEncoderPort(), jwtTokenAdapter);
 
     }
