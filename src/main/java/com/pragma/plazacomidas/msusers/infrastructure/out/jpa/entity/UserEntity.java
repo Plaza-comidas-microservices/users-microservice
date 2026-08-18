@@ -62,7 +62,7 @@ public class UserEntity {
     @Column(name = "password", nullable = false, length = 100 )
     private String password;
 
-    @Column(name = "role", nullable = false, length = 20)
+    @Column(name = "role", nullable = false, length = 20, unique = true)
     private String role; //idRole
 
 }

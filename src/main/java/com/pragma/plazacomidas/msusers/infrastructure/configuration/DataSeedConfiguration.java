@@ -26,7 +26,7 @@ public class DataSeedConfiguration {
                 adminUser.setCc("1112148306");
                 adminUser.setPhone("3043538272");
                 adminUser.setBirthDate(LocalDate.of(2004, 6, 11));
-                adminUser.setEmail("daron@gmail.com");
+                adminUser.setEmail("admin@gmail.com");
                 adminUser.setPassword(passwordEncoderPort.encode("Daron123."));
                 adminUser.setRole("ROLE_ADMIN");
                 userPersistencePort.saveUser(adminUser);

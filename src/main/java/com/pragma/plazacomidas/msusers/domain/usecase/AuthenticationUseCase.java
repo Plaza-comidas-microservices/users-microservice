@@ -26,7 +26,7 @@ public class AuthenticationUseCase implements IAuthenticationServicePort{
         UserModel owner = userPersistencePort.findByEmail(email);
 
         if(owner == null || !passwordEncoderPort.matches(rawPassword, owner.getPassword())){
-            throw new DomainException("Credenciles Inválidas");
+            throw new DomainException("Credenciales Inválidas");
         }
 
         return tokenPort.generateToken(owner.getId(), owner.getEmail(), owner.getRole());

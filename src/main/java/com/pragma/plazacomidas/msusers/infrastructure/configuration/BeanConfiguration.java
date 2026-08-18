@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort; // aquí estoy importantado el dominio
-import com.pragma.plazacomidas.msusers.domain.spi.IUserPersistencePort;
 import com.pragma.plazacomidas.msusers.domain.usecase.AuthenticationUseCase;
 import com.pragma.plazacomidas.msusers.domain.usecase.UserUseCase;
 import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.adapter.UserJpaAdapter;
@@ -16,7 +15,6 @@ import com.pragma.plazacomidas.msusers.infrastructure.out.security.JwtTokenAdapt
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 
 @Configuration
 @RequiredArgsConstructor
