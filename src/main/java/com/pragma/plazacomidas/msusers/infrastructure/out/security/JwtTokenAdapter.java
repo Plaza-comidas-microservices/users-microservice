@@ -1,5 +1,6 @@
 package com.pragma.plazacomidas.msusers.infrastructure.out.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -50,6 +51,41 @@ public class JwtTokenAdapter implements ITokenPort {
                 
                 // 5. Devuelve el String compacto
                 .compact();
+
+                
+    }
+    
+    public String extractEmail(String token) {
+        return extractAllClaims(token).get("email", String.class);
+    }
+
+    public Long extractId(String token) {
+        return extractAllClaims(token).get("id", Long.class);
+    }
+
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
+    }
+
+    public boolean isTokenValid(String token) {
+        try {
+            Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false; //si ya expiró
+        }
+    }
+
+    //Método auxiliar para leer el payload del JWT
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
 

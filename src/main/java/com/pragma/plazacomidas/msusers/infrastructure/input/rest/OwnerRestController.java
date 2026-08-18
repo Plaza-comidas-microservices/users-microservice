@@ -34,8 +34,11 @@ public class OwnerRestController {
     @Operation(summary = "create a new owner")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Owner created", content = @Content),
-            @ApiResponse(responseCode = "400", 
+            @ApiResponse(responseCode = "400",
             description = "Invalid owner data: email, phone or document format is invalid, or the owner is not of legal age",
+            content = @Content),
+            @ApiResponse(responseCode = "403",
+            description = "Missing, invalid or insufficient token: only an ADMIN can create an owner",
             content = @Content)
     })
     @PostMapping("/")
