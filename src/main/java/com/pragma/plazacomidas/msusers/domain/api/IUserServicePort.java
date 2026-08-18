@@ -2,14 +2,14 @@ package com.pragma.plazacomidas.msusers.domain.api;
 
 import java.util.List;
 
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 
 
 public interface IUserServicePort {
     
-    OwnerModel createOwner(OwnerModel ownerModel);
+    UserModel createOwner(UserModel ownerModel);
     
-    List<OwnerModel> getAllOwners();
+    List<UserModel> getAllOwners();
 
-    OwnerModel getOwnerById(Long ownerId);
+    UserModel getOwnerById(Long ownerId);
 }

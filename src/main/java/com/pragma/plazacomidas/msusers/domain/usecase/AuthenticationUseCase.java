@@ -3,7 +3,7 @@ package com.pragma.plazacomidas.msusers.domain.usecase;
 
 import com.pragma.plazacomidas.msusers.domain.api.IAuthenticationServicePort;
 import com.pragma.plazacomidas.msusers.domain.exception.DomainException;
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort;
 import com.pragma.plazacomidas.msusers.domain.spi.IUserPersistencePort;
 import com.pragma.plazacomidas.msusers.domain.spi.ITokenPort;
@@ -23,7 +23,7 @@ public class AuthenticationUseCase implements IAuthenticationServicePort{
 
     @Override
     public String login(String email, String rawPassword) {
-        OwnerModel owner = userPersistencePort.findByEmail(email);
+        UserModel owner = userPersistencePort.findByEmail(email);
 
         if(owner == null || !passwordEncoderPort.matches(rawPassword, owner.getPassword())){
             throw new DomainException("Credenciles Inválidas");
