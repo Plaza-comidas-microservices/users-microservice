@@ -2,10 +2,12 @@ package com.pragma.plazacomidas.msusers.domain.spi;
 
 import java.util.List;
 
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 
 public interface IUserPersistencePort {
-    OwnerModel saveOwner(OwnerModel ownerModel);
-    List<OwnerModel> getAllOwners();
-    OwnerModel getOwnerById(Long ownerId);
+    UserModel saveUser(UserModel ownerModel);
+    List<UserModel> getAllUsers();
+    UserModel getUserById(Long ownerId);
+    UserModel findByEmail(String email);
+    UserModel findByRole(String role);
 }

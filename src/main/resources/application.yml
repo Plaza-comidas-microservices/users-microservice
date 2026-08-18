@@ -13,3 +13,7 @@ spring:
     show-sql: true
 appDescription: "plazoleta users microservice"
 appVersion: "1.0.0"
+
+jwt:
+  secret: "qasshtipuuwnmcbwjcalibcieebnjolño29jne9djsallsdj-sdoo-ksks-o"
+  expiration: 3600000

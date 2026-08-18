@@ -6,12 +6,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import com.pragma.plazacomidas.msusers.application.dto.response.OwnerResponseDto;
-import com.pragma.plazacomidas.msusers.domain.model.OwnerModel;
+import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE )
 public interface IOwnerResponseMapper {
-    OwnerResponseDto toResponse(OwnerModel ownerModel);
+    OwnerResponseDto toResponse(UserModel ownerModel);
 
-    List<OwnerResponseDto> toResponseList(List<OwnerModel> ownerModelList);
+    List<OwnerResponseDto> toResponseList(List<UserModel> ownerModelList);
     
 }
