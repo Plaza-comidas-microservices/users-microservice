@@ -9,4 +9,5 @@ public interface IUserPersistencePort {
     List<OwnerModel> getAllOwners();
     OwnerModel getOwnerById(Long ownerId);
     OwnerModel findByEmail(String email);
+    OwnerModel findByRole(String role);
 }

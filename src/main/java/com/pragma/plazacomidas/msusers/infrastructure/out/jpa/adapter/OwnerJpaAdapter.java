@@ -43,5 +43,10 @@ public class OwnerJpaAdapter implements IUserPersistencePort {
     public OwnerModel findByEmail(String email) {
         return ownerRepository.findByEmail(email).map(ownerEntityMapper::toOwnerModel).orElse(null);
     }
+
+    @Override
+    public OwnerModel findByRole(String role) {
+        return ownerRepository.findByRole(role).map(ownerEntityMapper::toOwnerModel).orElse(null);
+    }
     
 }
