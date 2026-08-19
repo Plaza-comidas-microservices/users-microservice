@@ -17,3 +17,7 @@ appVersion: "1.0.0"
 jwt:
   secret: "qasshtipuuwnmcbwjcalibcieebnjolño29jne9djsallsdj-sdoo-ksks-o"
   expiration: 3600000
+
+mall:
+  service:
+    url: http://localhost:8082

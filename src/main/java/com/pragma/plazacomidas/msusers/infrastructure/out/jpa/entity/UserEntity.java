@@ -53,16 +53,19 @@ public class UserEntity {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date", nullable = true)
     private LocalDate birthDate;
 
-    @Column(name = "email", nullable = false, length = 50)
+    @Column(name = "email", nullable = false, length = 50, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, length = 100 )
     private String password;
 
-    @Column(name = "role", nullable = false, length = 20, unique = true)
-    private String role; //idRole
+    @Column(name = "role", nullable = false, length = 20)
+    private String role;
+
+    @Column(name = "restaurant_id", nullable = true)
+    private Long restaurantId;
 
 }

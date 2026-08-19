@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort; // aquí estoy importantado el dominio
+import com.pragma.plazacomidas.msusers.domain.spi.IRestaurantValidationPort;
 import com.pragma.plazacomidas.msusers.domain.usecase.AuthenticationUseCase;
 import com.pragma.plazacomidas.msusers.domain.usecase.UserUseCase;
 import com.pragma.plazacomidas.msusers.infrastructure.out.jpa.adapter.UserJpaAdapter;
@@ -31,8 +32,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public UserUseCase userUseCase(UserJpaAdapter ownerJpaAdapter) {
-        return new UserUseCase(ownerJpaAdapter, passwordEncoderPort());
+    public UserUseCase userUseCase(UserJpaAdapter ownerJpaAdapter, IRestaurantValidationPort restaurantValidationPort) {
+        return new UserUseCase(ownerJpaAdapter, passwordEncoderPort(), restaurantValidationPort);
     }
 
     @Bean

@@ -20,6 +20,7 @@ import com.pragma.plazacomidas.msusers.domain.exception.DomainException;
 import com.pragma.plazacomidas.msusers.domain.model.UserModel;
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort;
 import com.pragma.plazacomidas.msusers.domain.spi.IUserPersistencePort;
+import com.pragma.plazacomidas.msusers.domain.spi.IRestaurantValidationPort;
 import com.pragma.plazacomidas.msusers.domain.usecase.UserUseCase;
 
 
@@ -34,11 +35,14 @@ public class UserUseCaseTest {
     @Mock
     private IPasswordEncoderPort passwordEncoderPort;
 
+    @Mock
+    private IRestaurantValidationPort restaurantValidationPort;
+
     private UserUseCase userUseCase;
-    
+
     @BeforeEach
     void setUp() {
-        userUseCase = new UserUseCase(userPersistencePort, passwordEncoderPort);
+        userUseCase = new UserUseCase(userPersistencePort, passwordEncoderPort, restaurantValidationPort);
     }
 
     // ---------------------------------
@@ -47,8 +51,8 @@ public class UserUseCaseTest {
 
     @Test
     void createOwnerTest() {
-        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "+573005698325", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", null);
-        UserModel savedOwner = new UserModel(1L, "Daron", "Mercado", "111234567", "+573005698325", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", "ROLE_OWNER");
+        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "+573005698325", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", null, null);
+        UserModel savedOwner = new UserModel(1L, "Daron", "Mercado", "111234567", "+573005698325", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", "ROLE_OWNER", null);
 
         // Esto solo programa el comportamiento, no la encriptación real, eso ya lo hace el Spring security, yo pruebo es que se guarde la clave cifrada correctamente
         when(passwordEncoderPort.encode("12345")).thenReturn("encoded12345"); 
@@ -69,7 +73,7 @@ public class UserUseCaseTest {
     
     @Test
     void emailInvalidTest(){
-        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "+573005698325", LocalDate.of(1990,5,20), "daronQgmail.com", "12344", null);
+        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "+573005698325", LocalDate.of(1990,5,20), "daronQgmail.com", "12344", null, null);
         DomainException exception = assertThrows(DomainException.class, 
             () -> userUseCase.createOwner(ownerModel));
 
@@ -80,7 +84,7 @@ public class UserUseCaseTest {
 
     @Test
     void phoneInvalidTest(){
-        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "30056983", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", null);
+        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "30056983", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", null, null);
         DomainException exception = assertThrows(DomainException.class, 
             () -> userUseCase.createOwner(ownerModel));
 
@@ -91,7 +95,7 @@ public class UserUseCaseTest {
 
     @Test
     void ccInvalidTest(){
-        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "11123456s", "3005698325", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", null);
+        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "11123456s", "3005698325", LocalDate.of(1990,5,20), "daron@gmail.com", "12345", null, null);
         DomainException exception = assertThrows(DomainException.class, 
             () -> userUseCase.createOwner(ownerModel));
 
@@ -102,7 +106,7 @@ public class UserUseCaseTest {
 
     @Test
     void dateOfBirthInvalidTest(){
-        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "3005698325", LocalDate.of(LocalDate.now().getYear() + 1, 1, 1), "daron@gmail.com", "12345", null);
+        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "3005698325", LocalDate.of(LocalDate.now().getYear() + 1, 1, 1), "daron@gmail.com", "12345", null, null);
         DomainException exception = assertThrows(DomainException.class, 
             () -> userUseCase.createOwner(ownerModel));
 
@@ -113,7 +117,7 @@ public class UserUseCaseTest {
 
     @Test
     void ownerNotAdultTest(){
-        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "3005698325", LocalDate.of(LocalDate.now().getYear() - 10, 1, 1), "daron@gmail.com", "12345", null);
+        UserModel ownerModel = new UserModel(null, "Daron", "Mercado", "111234567", "3005698325", LocalDate.of(LocalDate.now().getYear() - 10, 1, 1), "daron@gmail.com", "12345", null, null);
         DomainException exception = assertThrows(DomainException.class, 
             () -> userUseCase.createOwner(ownerModel));
 
