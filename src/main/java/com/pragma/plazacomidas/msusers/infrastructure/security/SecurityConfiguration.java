@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/owner/*").permitAll() //dejo este sin protección para la comunicación entre microSS
                 .antMatchers(HttpMethod.POST, "/api/v1/owner/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/employee/**").hasRole("OWNER")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
