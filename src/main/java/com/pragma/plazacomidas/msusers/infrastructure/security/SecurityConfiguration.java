@@ -28,6 +28,7 @@ public class SecurityConfiguration {
             .and()
             .authorizeHttpRequests(auth -> auth
                 .antMatchers("/api/v1/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/client/**").permitAll()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/owner/*").permitAll() //dejo este sin protección para la comunicación entre microSS
                 .antMatchers(HttpMethod.POST, "/api/v1/owner/**").hasRole("ADMIN")

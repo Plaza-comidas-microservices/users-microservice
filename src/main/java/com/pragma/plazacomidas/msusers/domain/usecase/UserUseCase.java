@@ -96,4 +96,23 @@ public class UserUseCase implements IUserServicePort {
         return userPersistencePort.saveUser(employeeModel);
     }
 
+    @Override
+    public UserModel createClient(UserModel clientModel) {
+        String email = clientModel.getEmail();
+        String phoneNumber = clientModel.getPhone();
+        String cc = clientModel.getCc();
+
+        if (email == null || !email.contains("@")) {
+            throw new DomainException("El correo electrónico no es válido");
+        } else if (phoneNumber == null || !phoneNumber.matches("^\\+?\\d{10,13}$")) {
+            throw new DomainException("El número de teléfono no es válido. Ejemplo +573005698325");
+        } else if (cc == null || !cc.matches("\\d+")) {
+            throw new DomainException("El número de cédula debe ser solo dígitos");
+        }
+
+        clientModel.setRole("ROLE_CLIENT");
+        clientModel.setPassword(passwordEncoderPort.encode(clientModel.getPassword()));
+        return userPersistencePort.saveUser(clientModel);
+    }
+
 }

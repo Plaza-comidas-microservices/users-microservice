@@ -126,4 +126,63 @@ public class UserUseCaseTest {
         verify(userPersistencePort, never()).saveUser(any());
     }
 
+    @Test
+    void createClientTest() {
+        UserModel clientModel = new UserModel();
+        clientModel.setName("Ingrid");
+        clientModel.setLastName("Castillo");
+        clientModel.setCc("111122233");
+        clientModel.setPhone("+573043538372");
+        clientModel.setEmail("ingrid@gmail.com");
+        clientModel.setPassword("12345");
+
+        UserModel savedClient = new UserModel();
+        savedClient.setId(1L);
+        savedClient.setRole("ROLE_CLIENT");
+
+        when(passwordEncoderPort.encode("12345")).thenReturn("encoded12345");
+        when(userPersistencePort.saveUser(any(UserModel.class))).thenReturn(savedClient);
+
+        UserModel result = userUseCase.createClient(clientModel);
+
+        assertEquals(1L, result.getId());
+        assertEquals("ROLE_CLIENT", result.getRole());
+        verify(passwordEncoderPort, times(1)).encode("12345");
+        verify(userPersistencePort, times(1)).saveUser(any(UserModel.class));
+    }
+
+    @Test
+    void clientEmailInvalidTest() {
+        UserModel clientModel = new UserModel();
+        clientModel.setName("Ingrid");
+        clientModel.setLastName("Castillo");
+        clientModel.setCc("111122233");
+        clientModel.setPhone("+573043538372");
+        clientModel.setEmail("ingridQgmail.com");
+        clientModel.setPassword("12345");
+
+        DomainException exception = assertThrows(DomainException.class,
+                () -> userUseCase.createClient(clientModel));
+
+        assertEquals("El correo electrónico no es válido", exception.getMessage());
+        verify(userPersistencePort, never()).saveUser(any());
+    }
+
+    @Test
+    void clientCcInvalidTest() {
+        UserModel clientModel = new UserModel();
+        clientModel.setName("Ingrid");
+        clientModel.setLastName("Castillo");
+        clientModel.setCc("11112223s");
+        clientModel.setPhone("+573043538372");
+        clientModel.setEmail("ingrid@gmail.com");
+        clientModel.setPassword("12345");
+
+        DomainException exception = assertThrows(DomainException.class,
+                () -> userUseCase.createClient(clientModel));
+
+        assertEquals("El número de cédula debe ser solo dígitos", exception.getMessage());
+        verify(userPersistencePort, never()).saveUser(any());
+    }
+
 }

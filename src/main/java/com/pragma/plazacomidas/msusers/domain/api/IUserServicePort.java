@@ -14,4 +14,6 @@ public interface IUserServicePort {
     UserModel getOwnerById(Long ownerId);
 
     UserModel createEmployee(UserModel employeeModel, Long authenticatedUserId);
+
+    UserModel createClient(UserModel clientModel);
 }
