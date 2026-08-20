@@ -29,7 +29,7 @@ public class JwtTokenAdapter implements ITokenPort {
     }
 
     @Override
-    public String generateToken(Long id, String email, String role) {
+    public String generateToken(Long id, String email, String role, Long restaurantId) {
         long nowMillis = System.currentTimeMillis();
         Date issuedAt = new Date(nowMillis);
         Date expiration = new Date(nowMillis + expirationTimeInMillis);
@@ -39,6 +39,7 @@ public class JwtTokenAdapter implements ITokenPort {
                 .claim("id", id)
                 .claim("email", email)
                 .claim("role", role)
+                .claim("restaurantId", restaurantId)
                 
                 // 2. Cuándo se emitió
                 .setIssuedAt(issuedAt)
