@@ -53,7 +53,7 @@ class AuthenticationUseCaseTest {
 
         when(userPersistencePort.findByEmail("admin@gmail.com")).thenReturn(user);
         when(passwordEncoderPort.matches("rawPassword", "hashedPassword")).thenReturn(true);
-        when(tokenPort.generateToken(1L, "admin@gmail.com", "ROLE_ADMIN")).thenReturn("fake-jwt-token");
+        when(tokenPort.generateToken(1L, "admin@gmail.com", "ROLE_ADMIN", 1L)).thenReturn("fake-jwt-token");
 
         // When
         String token = authenticationUseCase.login("admin@gmail.com", "rawPassword");

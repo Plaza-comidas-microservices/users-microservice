@@ -28,8 +28,8 @@ public class AuthenticationUseCase implements IAuthenticationServicePort{
         if(owner == null || !passwordEncoderPort.matches(rawPassword, owner.getPassword())){
             throw new DomainException("Credenciales Inválidas");
         }
-
-        return tokenPort.generateToken(owner.getId(), owner.getEmail(), owner.getRole());
+        
+        return tokenPort.generateToken(owner.getId(), owner.getEmail(), owner.getRole(), owner.getRestaurantId());
     }
     
 }
