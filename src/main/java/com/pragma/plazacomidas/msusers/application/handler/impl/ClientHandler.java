@@ -4,8 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pragma.plazacomidas.msusers.application.dto.request.ClientRequestDto;
+import com.pragma.plazacomidas.msusers.application.dto.response.ClientContactResponseDto;
 import com.pragma.plazacomidas.msusers.application.dto.response.ClientResponseDto;
 import com.pragma.plazacomidas.msusers.application.handler.IClientHandler;
+import com.pragma.plazacomidas.msusers.application.mapper.IClientContactMapper;
 import com.pragma.plazacomidas.msusers.application.mapper.IClientRequestMapper;
 import com.pragma.plazacomidas.msusers.application.mapper.IClientResponseMapper;
 import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
@@ -21,11 +23,18 @@ public class ClientHandler implements IClientHandler {
     private final IUserServicePort userServicePort;
     private final IClientRequestMapper clientRequestMapper;
     private final IClientResponseMapper clientResponseMapper;
+    private final IClientContactMapper clientContactMapper;
 
     @Override
     public ClientResponseDto saveClient(ClientRequestDto clientRequestDto) {
         UserModel clientModel = clientRequestMapper.toClient(clientRequestDto);
         UserModel createdClient = userServicePort.createClient(clientModel);
         return clientResponseMapper.toResponse(createdClient);
+    }
+
+    @Override
+    public ClientContactResponseDto getClientContactById(Long clientId) {
+        UserModel clientModel = userServicePort.getOwnerById(clientId);
+        return clientContactMapper.toResponse(clientModel);
     }
 }

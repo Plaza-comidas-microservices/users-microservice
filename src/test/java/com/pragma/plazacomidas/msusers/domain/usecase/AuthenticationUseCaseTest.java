@@ -41,6 +41,7 @@ class AuthenticationUseCaseTest {
         user.setEmail("admin@gmail.com");
         user.setPassword("hashedPassword");
         user.setRole("ROLE_ADMIN");
+        user.setRestaurantId(1L);
         return user;
     }
 

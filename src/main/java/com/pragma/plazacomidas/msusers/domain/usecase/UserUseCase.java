@@ -67,6 +67,8 @@ public class UserUseCase implements IUserServicePort {
         return userPersistencePort.getAllUsers();
     }
 
+    //Este método me sirve ambién para buscar al cliente por el ID
+    // ya que implementa el getUserById genérico 
     @Override
     public UserModel getOwnerById(Long ownerId) {
         return userPersistencePort.getUserById(ownerId);
