@@ -36,9 +36,7 @@ public class OwnerHandler implements IOwnerHandler {
         //2 llamo al caso de uso
         UserModel createdOwner = userServicePort.createOwner(ownerModel);
         //3 mapeo de salida
-        OwnerResponseDto ownerResponseDto = ownerResponseMapper.toResponse(createdOwner);
-
-        return ownerResponseDto;
+        return ownerResponseMapper.toResponse(createdOwner); 
     }
 
     @Override
@@ -52,8 +50,6 @@ public class OwnerHandler implements IOwnerHandler {
         UserModel ownerModelFound = userServicePort.getOwnerById(ownerId);
 
         //Mapeo la salida
-        OwnerValidationResponseDto ownerValidationResponseDto = ownerValidationMapper.toResponse(ownerModelFound);
-        
-        return ownerValidationResponseDto;
+        return ownerValidationMapper.toResponse(ownerModelFound);
     }
 }

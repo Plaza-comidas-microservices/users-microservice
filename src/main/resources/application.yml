@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/plazoleta_users
     username: root
-    password: Azul061100.@/..-/./
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
@@ -15,7 +15,7 @@ appDescription: "plazoleta users microservice"
 appVersion: "1.0.0"
 
 jwt:
-  secret: "qasshtipuuwnmcbwjcalibcieebnjolño29jne9djsallsdj-sdoo-ksks-o"
+  secret: ${JWT_SECRET}
   expiration: 3600000
 
 mall:
