@@ -25,7 +25,7 @@ import com.pragma.plazacomidas.msusers.domain.usecase.UserUseCase;
 
 
 @ExtendWith(MockitoExtension.class)
-public class UserUseCaseTest {
+class UserUseCaseTest {
 
 
     //----------- SET UP ----------------

@@ -2,6 +2,7 @@ package com.pragma.plazacomidas.msusers.domain.usecase;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.List;
 
 import com.pragma.plazacomidas.msusers.domain.api.IUserServicePort;
@@ -13,6 +14,9 @@ import com.pragma.plazacomidas.msusers.domain.spi.IRestaurantValidationPort;
 import com.pragma.plazacomidas.msusers.domain.spi.IPasswordEncoderPort;
 
 public class UserUseCase implements IUserServicePort {
+    private static final String PHONE_PATTERN = "^\\+?\\d{10,13}$";
+    private static final ZoneId COLOMBIA_ZONE = ZoneId.of("America/Bogota");
+
     private final IUserPersistencePort userPersistencePort;
     private final IPasswordEncoderPort passwordEncoderPort;
     private final IRestaurantValidationPort restaurantValidationPort;
@@ -34,13 +38,13 @@ public class UserUseCase implements IUserServicePort {
 
         if (email == null || !email.contains("@")) {
             throw new DomainException("El correo electrónico no es válido");
-        }else if (phoneNumber == null || !phoneNumber.matches("^\\+?\\d{10,13}$")) {
+        }else if (phoneNumber == null || !phoneNumber.matches(PHONE_PATTERN)) {
             throw new DomainException("El número de teléfono no es válido. Ejemplo +573005698325");
         } else if (cc == null || !cc.matches("\\d+")  ) {
             throw new DomainException("El número de cédula debe ser solo dígitos");
-        }else if(birthDate == null || birthDate.isAfter(LocalDate.now())){
+        }else if(birthDate == null || birthDate.isAfter(LocalDate.now(COLOMBIA_ZONE))){
             throw new DomainException("No puedes nacer en el futuro");
-        } else if (isAdult(birthDate) == false){
+        } else if (!isAdult(birthDate)){
             throw new DomainException("El propietario debe ser mayor de edad");
         }else{
             ownerModel.setRole("ROLE_OWNER");
@@ -55,7 +59,7 @@ public class UserUseCase implements IUserServicePort {
     public boolean isAdult(LocalDate birthDate) {
         boolean isAdult = false;
         if (birthDate != null) {
-            LocalDate currentDate = LocalDate.now();
+            LocalDate currentDate = LocalDate.now(COLOMBIA_ZONE);
             Period age = Period.between(birthDate, currentDate);
             isAdult = age.getYears() >= 18;
         }
@@ -83,7 +87,7 @@ public class UserUseCase implements IUserServicePort {
 
         if (email == null || !email.contains("@")) {
             throw new DomainException("El correo electrónico no es válido");
-        } else if (phoneNumber == null || !phoneNumber.matches("^\\+?\\d{10,13}$")) {
+        } else if (phoneNumber == null || !phoneNumber.matches(PHONE_PATTERN)) {
             throw new DomainException("El número de teléfono no es válido. Ejemplo +573005698325");
         } else if (cc == null || !cc.matches("\\d+")) {
             throw new DomainException("El número de cédula debe ser solo dígitos");
@@ -106,7 +110,7 @@ public class UserUseCase implements IUserServicePort {
 
         if (email == null || !email.contains("@")) {
             throw new DomainException("El correo electrónico no es válido");
-        } else if (phoneNumber == null || !phoneNumber.matches("^\\+?\\d{10,13}$")) {
+        } else if (phoneNumber == null || !phoneNumber.matches(PHONE_PATTERN)) {
             throw new DomainException("El número de teléfono no es válido. Ejemplo +573005698325");
         } else if (cc == null || !cc.matches("\\d+")) {
             throw new DomainException("El número de cédula debe ser solo dígitos");
